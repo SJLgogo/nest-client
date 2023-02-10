@@ -9,10 +9,10 @@ module.exports = {
   /**
    * The following means that all requests are directed to the backend `https://localhost:9000/`
    */
-  // '/api': {
-  //   target: 'http://localhost:4000/',
-  //   secure: false, // Ignore invalid SSL certificates
-  //   changeOrigin: true,
-  //   pathRewrite: { '^/api': '' }
-  // }
+  '/api': {
+    target: 'http://localhost:4000/',
+    secure: false, // Ignore invalid SSL certificates
+    changeOrigin: true,
+    pathRewrite: { '^/api': '' }
+  }
 };

@@ -78,12 +78,18 @@ export class UserLoginComponent implements OnDestroy {
     const post = {
       username: this.username,password: this.password
     }
-    this.http.post('http://localhost:4000/auth/login',post).subscribe((res:any)=>{
+    this.http.post('http://localhost:4000/auth/login',post,null,     {
+            context: new HttpContext().set(ALLOW_ANONYMOUS, true)
+          }).subscribe((res:any)=>{
       const {token, user, expiresIn} = res.data;
-      const tokenExpires = Date.now() + expiresIn * 60 * 1000
-      // 本地存储
-      localStorage.setItem('token', token);
+        this.tokenService.set({
+          token:token,
+          expired:+new Date() + 1000 * 60 * expiresIn,
+          ...user 
+        })
+      this.router.navigate(['/user/home'])
     })
+  
   }
 
   // #region social
